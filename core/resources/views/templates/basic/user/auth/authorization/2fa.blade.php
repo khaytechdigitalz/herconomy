@@ -20,7 +20,7 @@
                 </div>
       
 
-                <form action="{{route('user.go2fa.verify')}}" method="POST">
+                <form action="{{route('user.go2fa.verify')}}" method="POST" class="fo">
                     
                     @csrf
                     
