@@ -86,7 +86,7 @@ class LoginController extends Controller
         $reply = json_decode($resp,true);
         if(!isset($reply['token']))
         {
-            $notify[] = ['error', ' Error '.$reply['non_field_errors'][0]];
+            $notify[] = ['error', ' Error '.@$reply['non_field_errors'][0]];
             return back()->withNotify($notify);
         }
         if($reply['user']['is_blocked'])

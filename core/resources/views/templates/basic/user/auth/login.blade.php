@@ -21,14 +21,14 @@
 <div class="container">
     
     <ul class="nav nav-tabs">
-      <li><a class="cmn--btn m-0 text-white" data-toggle="tab" href="#menu1">Login With Herconomy </a></li>
-      {{--}}
+      <li><a class="cmn--btn m-0 text-white" data-toggle="tab" href="#menu2">Login With Herconomy </a></li>
+      {{--
        <li><a class="cmn--btn m-0 text-white" data-toggle="tab" href="#menu2">Login With Username</a></li> 
-      {{--}}
+       --}}
     </ul>
   
     <div class="tab-content">
-      
+      {{--
       <div id="menu1" class="tab-pane fade">
         <h3></h3>
         <p>Please enter your Herconomy Email & Password Below</p>
@@ -52,6 +52,8 @@
                 </div>
         </form>
       </div>
+      
+      {{--}}
       
       <div id="menu2" class="tab-pane fade active">
         <h3></h3>

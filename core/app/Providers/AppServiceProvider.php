@@ -104,10 +104,13 @@ class AppServiceProvider extends ServiceProvider
                 'seo' => $seo ? $seo->data_values : $seo,
             ]);
         });
-
+       
+        /*
         if($general->force_ssl){
             \URL::forceScheme('https');
         }
+        */
+
 
         Paginator::useBootstrap();
     }
