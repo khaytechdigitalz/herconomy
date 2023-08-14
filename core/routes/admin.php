@@ -63,6 +63,7 @@ Route::namespace('Admin')->name('admin.')->group(function () {
         Route::get('user/login/{id}', 'ManageUsersController@login')->name('users.login');
         Route::get('user/transactions/{id}', 'ManageUsersController@transactions')->name('users.transactions');
         Route::get('user/deposits/{id}', 'ManageUsersController@deposits')->name('users.deposits');
+        Route::get('user/cashback/{id}', 'ManageUsersController@cashback')->name('users.cashback');
 
         Route::get('report/user_order/{id}', 'ReportController@orderByUser')->name('report.order.user');
         Route::get('report/user_order/{id}/search', 'ReportController@userOrderSearch')->name('report.order.user_search');

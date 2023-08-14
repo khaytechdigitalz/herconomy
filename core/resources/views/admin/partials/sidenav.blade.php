@@ -334,26 +334,11 @@
                     </a>
 
                     <div class="sidebar-submenu {{menuActive(['admin.coupon*', 'admin.offer.*', 'admin.subscriber.*'], 2)}} ">
-                        <ul>
-                            <li class="sidebar-menu-item {{ menuActive('admin.coupon*') }}">
-                                <a class="nav-link" href="{{ route('admin.coupon.index') }}">
-                                    <i class="menu-icon lab la-contao"></i>
-                                    <span class="menu-title">@lang('Coupons')</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-menu-item {{ menuActive('admin.offer*') }}">
-                                <a class="nav-link" href="{{ route('admin.offer.index') }}">
-                                    <i class="menu-icon la la-fire-alt"></i>
-                                    <span class="menu-title">@lang('Offers')</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-menu-item  {{menuActive('admin.subscriber.index')}}">
-                                <a href="{{route('admin.subscriber.index')}}" class="nav-link"
-                                data-default-url="{{ route('admin.subscriber.index') }}">
-                                    <i class="menu-icon la la-thumbs-up"></i>
-                                    <span class="menu-title">@lang('Subscribers') </span>
+                        <ul> 
+                         <li class="sidebar-menu-item {{ menuActive('admin.order.sells.log.seller') }}">
+                                <a class="nav-link" href="{{ route('admin.order.sells.log.seller') }}">
+                                    <i class="menu-icon las la-history"></i>
+                                    <span class="menu-title">@lang('Cashback Log')</span>
                                 </a>
                             </li>
                         </ul>
@@ -633,13 +618,7 @@
                                     <i class="menu-icon las la-dot-circle"></i>
                                     <span class="menu-title">@lang('Automatic Gateways')</span>
                                 </a>
-                            </li>
-                            <li class="sidebar-menu-item {{menuActive('admin.gateway.manual.index')}} ">
-                                <a href="{{route('admin.gateway.manual.index')}}" class="nav-link">
-                                    <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Manual Gateways')</span>
-                                </a>
-                            </li>
+                            </li> 
                         </ul>
                     </div>
                 </li>

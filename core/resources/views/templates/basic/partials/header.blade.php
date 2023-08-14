@@ -106,24 +106,24 @@
             <ul class="shortcut-icons">
                 <li>
                     <a href="{{route('user.login')}}" class="dashboard-menu-bar" ids="account-btn">
-                        <i style="color:black;" class="las la-user"></i>
+                        <i style="color:orange;" class="las la-user"></i>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('compare')}}">
-                        <i style="color:black;" class="las la-sync-alt"></i>
+                        <i style="color:orange;" class="las la-sync-alt"></i>
                         <span class="compare-count amount">0</span>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" id="wish-button">
-                        <i style="color:black;" class="lar la-heart"></i>
+                        <i style="color:orange;" class="lar la-heart"></i>
                         <span class="wishlist-count amount">0</span>
                     </a>
                 </li>
                 <li>
                     <a href="javascript:void(0)" id="cart-button">
-                        <i style="color:black;" class="las la-shopping-bag"></i>
+                        <i style="color:orange;" class="las la-shopping-bag"></i>
                         <span class="cart-count amount">0</span>
                     </a>
                 </li>

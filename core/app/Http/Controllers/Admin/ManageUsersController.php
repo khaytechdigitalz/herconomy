@@ -11,6 +11,7 @@ use App\Models\GeneralSetting;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\WithdrawMethod;
+use App\Models\Cashback;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,6 +116,16 @@ class ManageUsersController extends Controller
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('admin.users.detail', compact('pageTitle', 'user','totalDeposit','totalTransaction','countries' ,'totalOrders'));
 
+    }
+    
+    public function cashback($id)
+    {
+        $user               = User::findOrFail($id);
+        $pageTitle  = $user->username.' Cashbacks Earnings';
+       // $cashbacks     = Cashback::whereSellerId($seller->id)->with('product')->with('store')->paginate(10);
+        $sum     = Cashback::whereUserId($id)->with('product')->with('store')->sum('cashback');
+        $cashbacks    = Cashback::whereUserId($id)->with('product')->with('store')->get()->groupBy('order_ref');
+        return view('admin.cashback', compact('pageTitle',  'cashbacks','sum'));
     }
     public function addSubBalance(Request $request, $id)
     {

@@ -31,8 +31,9 @@
                                 <th class="text-white">@lang('Amount')</th>
                                 <th class="text-white">@lang('Customer Cashback')</th>
                                 @if(request()->routeIs('admin.cashback.admin'))
-                                <th class="text-white">@lang('Admin Earning')</th>
+                                <th class="text-white">@lang('Herconomy Earnings')</th>
                                 @endif
+                                <th class="text-white">@lang('Date')</th> 
                                 <th class="text-white">@lang('Time')</th> 
                                 <th>Action</th>
                             </tr>
@@ -72,8 +73,11 @@
                                         <a class="text-success">{{$general->cur_sym}}{{number_format($admin_fee,2)}}</a>
                                     </td>
                                     @endif
-                                    <td data-label="@lang('Time')">
+                                    <td data-label="@lang('Date')">
                                         {{ showDateTime($cashback->created_at, 'd M, Y') }}
+                                    </td>
+                                    <td data-label="@lang('Time')">
+                                        {{ showDateTime($cashback->created_at, 'h:i A') }}
                                     </td>
                                     <td><button class="btn btn--primary" href="#" data-toggle="modal" data-target="#cashbackModal{{$k}}">Details</button></td>
 
@@ -103,11 +107,14 @@
                                             @php $amount += $cashback->amount; @endphp
                                             @php $user = App\Models\User::whereId($cashback->user_id)->first();  @endphp
                                             @php $product = App\Models\Product::whereId($cashback->product_id)->first();  @endphp  
-                                            <li class="list-group-item">{{$product->name ?? "N/A"}} : {{$general->cur_sym}}{{number_format($cashback->cashback,2)}}</li>
+                                            <li class="list-group-item">{{$product->name ?? "N/A"}} : {{$general->cur_sym}}{{number_format($product->base_price,2)}}</li>
                                             @endforeach 
-                                            <li class="list-group-item"><b>CUSTOMER'S CASHBACK:  {{$general->cur_sym}}{{number_format($return,2)}}</b>
+                                            <hr>
+                                            <li class="list-group-item">Total Cashback : {{$general->cur_sym}}{{number_format($return+$adminreturn,2)}}</li>
+                                            
+                                            <li class="list-group-item"><b>CUSTOMER'S CASHBACK:  {{$general->cur_sym}}{{number_format($return,2)}} ({{100 - $general->product_commission}}% of total cashback)</b>
                                                 @if(request()->routeIs('admin.cashback.admin'))
-                                                <li class="list-group-item"><b>ADMIN CASHBACK:  {{$general->cur_sym}}{{number_format($adminreturn,2)}}</b>
+                                                <li class="list-group-item"><b>HERCONOMY CASHBACK:  {{$general->cur_sym}}{{number_format($adminreturn,2)}} ({{$general->product_commission}}% of total cashback)</b>
                                                 @endif
                                           </ul>
                                     </div>

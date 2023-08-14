@@ -109,10 +109,13 @@ class LoginController extends Controller
         $user->username = trim(@$reply['user']['username']);
         $user->country_code = @$reply['user']['country_code'];
         $user->mobile = @$reply['user']['phone_number'];
+        $user->gender = @$reply['user']['gender'];
+        $user->tier = @$reply['user']['tier'];
+        $user->user_tag = @$reply['user']['user_tag'];
         $user->remember_token = @$reply['token'];
         $user->address = [
             'address' => '',
-            'state' => '',
+            'state' => @$reply['user']['location'],
             'zip' => '',
             'country' => null,
             'city' => ''
@@ -128,6 +131,20 @@ class LoginController extends Controller
         {
         $exist->password = Hash::make(@$request->password);
         $exist->remember_token = @$reply['token'];
+        $exist->gender = @$reply['user']['gender'];
+        $exist->tier = @$reply['user']['tier'];
+        $exist->user_tag = @$reply['user']['user_tag'];
+        $exist->unique_id = @$reply['user']['id'];
+        $exist->remember_token = @$reply['token'];
+        
+        $exist->address = [
+            'address' => '',
+            'state' => @$reply['user']['location'],
+            'zip' => '',
+            'country' => null,
+            'city' => ''
+        ];
+        
         $exist->save();
         }
         
@@ -225,20 +242,22 @@ class LoginController extends Controller
             $userLogin->country_code = $exist->country_code;
             $userLogin->country =  $exist->country;
         }else{
+            /*
             $info = json_decode(json_encode(getIpInfo()), true);
-            $userLogin->longitude =  @implode(',',$info['long']);
-            $userLogin->latitude =  @implode(',',$info['lat']);
-            $userLogin->city =  @implode(',',$info['city']);
-            $userLogin->country_code = @implode(',',$info['code']);
-            $userLogin->country =  @implode(',', $info['country']);
+            $userLogin->longitude =  @implode(',',$info['long']) ?? null;
+            $userLogin->latitude =  @implode(',',$info['lat']) ?? null;
+            $userLogin->city =  @implode(',',$info['city']) ?? null;
+            $userLogin->country_code = @implode(',',$info['code']) ?? null;
+            $userLogin->country =  @implode(',', $info['country']) ?? null;
+            */
         }
 
         $userAgent = osBrowser();
         $userLogin->user_id = $user->id;
         $userLogin->user_ip =  $ip;
 
-        $userLogin->browser = @$userAgent['browser'];
-        $userLogin->os = @$userAgent['os_platform'];
+        $userLogin->browser = @$userAgent['browser'] ?? null;
+        $userLogin->os = @$userAgent['os_platform'] ?? null;
         $userLogin->save();
 
         //Check Cart

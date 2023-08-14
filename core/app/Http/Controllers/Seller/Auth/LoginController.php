@@ -131,12 +131,14 @@ class LoginController extends Controller
             $sellerLogin->country_code  = $exist->country_code;
             $sellerLogin->country       = $exist->country;
         }else{
+            /*
             $info                       = json_decode(json_encode(getIpInfo()), true);
             $sellerLogin->longitude     = @implode(',',$info['long']);
             $sellerLogin->latitude      = @implode(',',$info['lat']);
             $sellerLogin->city          = @implode(',',$info['city']);
             $sellerLogin->country_code  = @implode(',',$info['code']);
             $sellerLogin->country       = @implode(',', $info['country']);
+            */
         }
 
         $sellerAgent             = osBrowser();

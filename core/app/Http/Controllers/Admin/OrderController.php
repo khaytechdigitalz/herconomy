@@ -19,12 +19,10 @@ class OrderController extends Controller
     public function cashbackall()
     {
         $pageTitle  = 'Customers Cashbacks';
-        $seller         = seller();
+       // $seller         = seller();
        // $cashbacks     = Cashback::whereSellerId($seller->id)->with('product')->with('store')->paginate(10);
-        $sum     = Cashback::whereSellerId($seller->id)->with('product')->with('store')->sum('cashback');
-        $cashbacks    = Cashback::where('seller_id', $seller->id)
-        //->select('order_ref')
-        ->with('product')->with('store')->get()->groupBy('order_ref');
+        $sum     = Cashback::with('product')->with('store')->sum('cashback');
+        $cashbacks    = Cashback::with('product')->with('store')->get()->groupBy('order_ref');
         return view('admin.cashback', compact('pageTitle',  'cashbacks','sum'));
     }
 
@@ -32,12 +30,9 @@ class OrderController extends Controller
     public function cashbackadmin()
     {
         $pageTitle  = 'Admin Cashbacks';
-        $seller         = seller();
        // $cashbacks     = Cashback::whereSellerId($seller->id)->with('product')->with('store')->paginate(10);
-        $sum     = Cashback::whereSellerId($seller->id)->with('product')->with('store')->sum('admin_fee');
-        $cashbacks    = Cashback::where('seller_id', $seller->id)
-        //->select('order_ref')
-        ->with('product')->with('store')->get()->groupBy('order_ref');
+        $sum     = Cashback::with('product')->with('store')->sum('admin_fee');
+        $cashbacks    = Cashback::with('product')->with('store')->get()->groupBy('order_ref');
         return view('admin.cashback', compact('pageTitle',  'cashbacks','sum'));
     }
 

@@ -78,7 +78,7 @@ Route::name('seller.')->namespace('Seller')->group(function () {
             Route::get('order/details/{id}', 'OrderController@orderDetails')->name('order.details');
 
             //Sell log
-            Route::get('sales-log', 'sellerController@sellLogs')->name('sell.log');
+            Route::get('sales-log', 'SellerController@sellLogs')->name('sell.log');
             Route::get('transaction-logs', 'SellerController@trxLogs')->name('trx.log');
 
             // Settlement

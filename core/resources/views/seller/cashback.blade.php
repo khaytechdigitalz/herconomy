@@ -47,7 +47,7 @@
                             $amount = 0;
                             @endphp
                             @foreach($data as $cashback)
-                            @php $return += $cashback->cashback; @endphp
+                            @php $return += $cashback->calc_cashback; @endphp
                             @php $amount += $cashback->amount; @endphp
                             @php $user = App\Models\User::whereId($cashback->user_id)->first();  @endphp
 
@@ -87,12 +87,12 @@
                                             $return = 0;
                                             @endphp
                                             @foreach($data as $cashback)
-                                            @php $return += $cashback->cashback; @endphp
+                                            @php $return += $cashback->calc_cashback; @endphp
                                             @php $amount += $cashback->amount; @endphp
                                             @php $user = App\Models\User::whereId($cashback->user_id)->first();  @endphp
                                             @php $product = App\Models\Product::whereId($cashback->product_id)->first();  @endphp  
 
-                                            <li class="list-group-item">{{$product->name ?? "N/A"}} : {{$general->cur_sym}}{{number_format($cashback->cashback,2)}}</li>
+                                            <li class="list-group-item">{{$product->name ?? "N/A"}} : {{$general->cur_sym}}{{number_format($product->base_price,2)}}</li>
                                             @endforeach 
                                             <li class="list-group-item"><b>TOTAL CASHBACK:  {{$general->cur_sym}}{{number_format($return,2)}}</b>
                                           </ul>

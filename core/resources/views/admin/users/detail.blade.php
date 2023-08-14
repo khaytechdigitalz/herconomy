@@ -68,17 +68,17 @@
             <div class="row mb-none-30">
                 <div class="col-xl-12 col-lg-12 col-sm-12 mb-30">
                     <div {{gradient()}} class="dashboard-w1  b-radius--10 box-shadow has--link">
-                        <a href="#" class="item--link"></a>
+                        <a href="{{route('admin.users.cashback',$user->id)}}" class="item--link"></a>
                         <div class="icon">
                             <i class="fa fa-wallet"></i>
                         </div>
                         <div class="details">
                             <div class="numbers">
                                 <span class="currency-sign"> {{__($general->cur_sym)}}</span>
-                                <span class="amount">{{getAmount($user->balance)}}</span>
+                                <span class="amount">{{getAmount($user->cashback_balance)}}</span>
                             </div>
                             <div class="desciption">
-                                <span>@lang('Available Balance')</span>
+                                <span>@lang('Available Cashback Balance')</span>
                             </div>
                         </div>
                     </div>
@@ -142,23 +142,25 @@
             <div class="card mt-50">
                 <div class="card-body">
                     <h5 class="card-title border-bottom pb-2">@lang('Information of') {{$user->fullname}}</h5>
-
+                
+                    {{--
                     <form action="{{route('admin.users.update',[$user->id])}}" method="POST"
                           enctype="multipart/form-data">
                         @csrf
+                        --}}
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group ">
                                     <label class="form-control-label font-weight-bold">@lang('First Name')<span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="firstname" value="{{$user->firstname}}">
+                                    <input disabled class="form-control" type="text" name="firstname" value="{{$user->firstname}}">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label  font-weight-bold">@lang('Last Name') <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="lastname" value="{{$user->lastname}}">
+                                    <input disabled class="form-control" type="text" name="lastname" value="{{$user->lastname}}">
                                 </div>
                             </div>
                         </div>
@@ -167,14 +169,32 @@
                             <div class="col-md-6">
                                 <div class="form-group ">
                                     <label class="form-control-label font-weight-bold">@lang('Email') <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="email" value="{{$user->email}}" readonly>
+                                    <input disabled class="form-control" type="email" value="{{$user->email}}" readonly>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label font-weight-bold">@lang('Mobile Number') <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="{{$user->mobile}}" readonly>
+                                    <input disabled class="form-control" type="text" value="{{$user->mobile}}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label font-weight-bold">@lang('Gender') <span class="text-danger">*</span></label>
+                                    <input disabled class="form-control" type="text" value="{{$user->gender}}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label font-weight-bold">@lang('tier') <span class="text-danger">*</span></label>
+                                    <input disabled class="form-control" type="text" value="{{$user->tier}}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label font-weight-bold">@lang('unique_id') <span class="text-danger">*</span></label>
+                                    <input disabled class="form-control" type="text" value="{{$user->unique_id}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -183,35 +203,35 @@
                             <div class="col-md-12">
                                 <div class="form-group ">
                                     <label class="form-control-label font-weight-bold">@lang('Address') </label>
-                                    <input class="form-control" type="text" name="address" value="{{@$user->address->address}}">
+                                    <input disabled class="form-control" type="text" name="address" value="{{@$user->address->address}}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label font-weight-bold">@lang('City') </label>
-                                    <input class="form-control" type="text" name="city" value="{{@$user->address->city}}">
+                                    <input disabled class="form-control" type="text" name="city" value="{{@$user->address->city}}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group ">
                                     <label class="form-control-label font-weight-bold">@lang('State') </label>
-                                    <input class="form-control" type="text" name="state" value="{{@$user->address->state}}">
+                                    <input disabled class="form-control" type="text" name="state" value="{{@$user->address->state}}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group ">
                                     <label class="form-control-label font-weight-bold">@lang('Zip/Postal') </label>
-                                    <input class="form-control" type="text" name="zip" value="{{@$user->address->zip}}">
+                                    <input disabled class="form-control" type="text" name="zip" value="{{@$user->address->zip}}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group ">
                                     <label class="form-control-label font-weight-bold">@lang('Country')</label>
-                                    <input class="form-control" type="text" value="{{@$user->address->country}}" readonly>
+                                    <input disabled class="form-control" type="text" value="{{@$user->address->country}}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +263,7 @@
                             </div>
                         </div>
 
-
+                        {{--                        
                         <div class="row mt-4">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -253,6 +273,7 @@
                             </div>
                         </div>
                     </form>
+                    --}}
                 </div>
             </div>
         </div>

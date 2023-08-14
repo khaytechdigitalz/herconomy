@@ -32,52 +32,61 @@
                             </div>
 
                             <div class="col-lg-8 col-md-6">
-                                <form action="" method="post" enctype="multipart/form-data" class="user-profile-form row mb--20">
+                               
+                                <form  {{-- action="" method="post" enctype="multipart/form-data" --}} class="user-profile-form row mb--20">
                                     @csrf
+                                    
+                                    
 
-                                    <input type='file' class="d-none" name="image" id="file-input" accept=".png, .jpg, .jpeg" />
+                                    <input type='file' disabled class="d-none" name="image" id="file-input" accept=".png, .jpg, .jpeg" />
 
                                     <div class="col-lg-6 mb-20">
                                         <label class="billing-label">@lang('First Name')</label>
-                                        <input class="form-control custom--style" type="text" name="firstname" value="{{ $user->firstname}}" placeholder="@lang('Last Name')">
+                                        <input disabled class="form-control custom--style" type="text" name="firstname" value="{{ $user->firstname}}" placeholder="@lang('Last Name')">
                                     </div>
 
                                     <div class="col-lg-6 mb-20">
                                         <label class="billing-label">@lang('Last Name')</label>
-                                        <input class="form-control custom--style" type="text" name="lastname" value="{{ $user->lastname}}" placeholder="@lang('Last Name')">
+                                        <input disabled class="form-control custom--style" type="text" name="lastname" value="{{ $user->lastname}}" placeholder="@lang('Last Name')">
+                                    </div>
+
+                                    <div class="col-lg-6 mb-20">
+                                        <label class="billing-label">@lang('Gender')</label>
+                                        <input disabled class="form-control custom--style" type="text" name="gender" value="{{ $user->gender}}" placeholder="@lang('Gender')">
                                     </div>
 
 
                                     <div class="col-lg-6 mb-20">
                                         <label for="state" class="billing-label">@lang('Country'):</label>
-                                        <input type="text" class="form-control custom--style" placeholder="@lang('Country')" value="{{@$user->address->country}}" readonly>
+                                        <input disabled type="text" class="form-control custom--style" placeholder="@lang('Country')" value="{{@$user->address->country}}" readonly>
                                     </div>
 
                                     <div class="col-lg-6 mb-20">
                                         <label for="state" class="billing-label">@lang('State'):</label>
-                                        <input type="text" class="form-control custom--style" id="state" name="state" placeholder="@lang('state')" value="{{@$user->address->state}}" required>
+                                        <input disabled type="text" class="form-control custom--style" id="state" name="state" placeholder="@lang('state')" value="{{@$user->address->state}}" required>
                                     </div>
 
                                     <div class="col-lg-6 mb-20">
                                         <label for="city" class="billing-label">@lang('City'):</label>
-                                        <input type="text" class="form-control custom--style" id="city" name="city" placeholder="@lang('City')" value="{{@$user->address->city}}" required>
+                                        <input disabled type="text" class="form-control custom--style" id="city" name="city" placeholder="@lang('City')" value="{{@$user->address->city}}" required>
                                     </div>
 
                                     <div class="col-lg-6 mb-20">
                                         <label for="zip" class="billing-label">@lang('Zip Code'):</label>
-                                        <input type="text" class="form-control custom--style" id="zip" name="zip" placeholder="@lang('Zip Code')" value="{{@$user->address->zip}}" required>
+                                        <input disabled type="text" class="form-control custom--style" id="zip" name="zip" placeholder="@lang('Zip Code')" value="{{@$user->address->zip}}" required>
                                     </div>
 
                                     <div class="col-md-12 mb-20">
                                         <label for="address" class="billing-label">@lang('Address'):</label>
-                                        <textarea type="text" rows="2" class="form-control custom--style" id="address" name="address" placeholder="@lang('Address')" required>{{@$user->address->address}}</textarea>
+                                        <textarea disabled type="text" rows="2" class="form-control custom--style" id="address" name="address" placeholder="@lang('Address')" required>{{@$user->address->address}}</textarea>
                                     </div>
-
+                                     {{--
                                     <div class="col-md-12 ml-auto text-right mb-20">
-                                        <button type="submit" class="bill-button w-unset text-white">@lang('Update Profile')</button>
+                                        <button type="submit" disabled class="bill-button w-unset text-white">@lang('Update Profile')</button>
                                     </div>
+                                    --}}
 
-                                </form>
+                                </form> 
 
                             </div>
                         </div>

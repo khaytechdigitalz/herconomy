@@ -90,7 +90,7 @@ class PaymentController extends Controller
         $deposit->order_id         = $order->id;
         $deposit->save();
         session()->put('Track', $deposit->trx);
-        return redirect()->route('user.deposit.preview');
+        return redirect()->route('user.deposit.confirm');
     }
 
     public function depositPreview()

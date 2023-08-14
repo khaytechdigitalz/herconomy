@@ -25,19 +25,7 @@
                                 @lang('Payable'): <strong>{{showAmount($data->amount + $data->charge)}} {{$general->cur_text}}</strong>
                             </li>
 
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                @lang('Conversion Rate'): <strong>1 {{$general->cur_text}} = {{showAmount($data->rate)}}  {{$data->baseCurrency()}}</strong>
-                            </li>
-
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                @lang('In') {{$data->baseCurrency()}}:
-                                <strong>{{showAmount($data->final_amo)}}</strong>
-                            </li>
-
-                            @if($data->gateway->crypto==1)
-                                <li class="list-group-item">@lang("Conversion with $data->method_currency and final value will Show on next step")
-                                </li>
-                            @endif
+                              
                             @if( 1000 >$data->method_code)
                             <li class="list-group-item p-0">
                                 <a href="{{route('user.deposit.confirm')}}" class="cmn-btn btn-block">@lang('Pay Now')</a>

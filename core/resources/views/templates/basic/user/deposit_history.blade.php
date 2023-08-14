@@ -16,7 +16,7 @@
                         <thead class="bg--base">
                             <tr>
                                 <th class="text-white">@lang('Transaction ID')</th>
-                                <th class="text-white">@lang('Gateway')</th>
+                                <th class="text-white">@lang('Payment Method')</th>
                                 <th class="text-white">@lang('Amount')</th>
                                 <th class="text-white">@lang('Status')</th>
                                 <th class="text-white">@lang('Time')</th>
@@ -28,7 +28,13 @@
                             @foreach($logs as $k=>$data)
                                 <tr>
                                     <td data-label="#@lang('Trx')">{{$data->trx}}</td>
-                                    <td data-label="@lang('Gateway')">{{ __(@$data->gateway->name ??'Cash On Delivery')  }}</td>
+                                    <td data-label="@lang('Gateway')">
+                                        @if($data->gateway->name == 'PayStack')
+                                        CARD
+                                        @else
+                                        {{ __(@$data->gateway->name ??'Cash On Delivery')  }}
+                                        @endif
+                                        </td>
                                     <td data-label="@lang('Amount')">
                                         <strong>{{showAmount($data->amount)}} {{__($general->cur_text)}}</strong>
                                     </td>

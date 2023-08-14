@@ -36,6 +36,7 @@
                         </thead>
                         <tbody class="list">
                             @forelse($orders as $item)
+                            @if($item->user->id)
                             <tr>
                                 <td data-label="@lang('Order ID') | @lang('Time')">
                                     <span class="font-weight-bold d-block text--primary">{{ @$item->order_number }}</span>
@@ -95,6 +96,7 @@
 
                                 </td>
                             </tr>
+                            @endif
                             @empty
                             <tr>
                                 <td class="text-muted text-center" colspan="100%">{{ __($emptyMessage) }}</td>

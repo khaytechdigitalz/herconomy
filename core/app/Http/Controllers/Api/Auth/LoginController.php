@@ -51,7 +51,7 @@ class LoginController extends Controller
     {
 
         $validator = $this->validateLogin($request);
-
+        
         if ($validator->fails()) {
             return response()->json([
                 'code'=>200,
@@ -59,7 +59,7 @@ class LoginController extends Controller
                 'message'=>['error'=>$validator->errors()->all()],
             ]);
         }
-
+        
         //Call HEKONOMY AUTH API//
 
         $curl = curl_init();
@@ -78,15 +78,15 @@ class LoginController extends Controller
         }',
         CURLOPT_HTTPHEADER => array(
             'Content-Type: application/json',
-           // 'Cookie: csrftoken=zwNAuUvfYh5DZENaGMf3sP88WrXRa73Cn8XN9zyaQF5frXWdVFe993W7N5BDeXHU; sessionid=zzogjlv2d91oepbrm0f9soopmczxhe98'
         ),
         ));
         $resp = curl_exec($curl);
         curl_close($curl);
         $reply = json_decode($resp,true);
+      //  return $reply;
         if(!isset($reply['token']))
         {
-            $notify[] = ['error', ' Error '.@$reply['non_field_errors'][0]];
+            $notify[] = ['error', ' Error, we cant login with this login details'];
             return back()->withNotify($notify);
         }
         if($reply['user']['is_blocked'])
@@ -96,6 +96,7 @@ class LoginController extends Controller
         }
         
         //CHECK DB USER\\
+        return $reply;
         $exist = User::whereEmail($request->username)->first();
         if(!$exist)
         {
@@ -131,6 +132,7 @@ class LoginController extends Controller
         }
         
         $credentials = request([$this->username, 'password']);
+        
         //return $request->password;
         if(!Auth::attempt($credentials)){
             //$response[] = 'Unauthorized user';
@@ -138,13 +140,14 @@ class LoginController extends Controller
             return back()->withNotify($notify);
         }
 
+
         $user = $request->user();
         $tokenResult = $user->createToken('auth_token')->plainTextToken;
         $this->authenticated($request,$user);
         $response[] = 'Login Successful';
-
-        $notify[] = ['success', ' Success!! Login Successful'];
-        return back()->withNotify($notify); 
+      //  return Auth::user();
+        $notify[] = ['success', 'Login Successful'];
+        return redirect()->route('user.home')->withNotify($notify); 
     }
 
     public function login(Request $request)
@@ -226,7 +229,81 @@ class LoginController extends Controller
         ]);
     }
 
+
     public function authenticated(Request $request, $user)
+    {
+        if ($user->status == 0) {
+            $this->guard()->logout();
+            return redirect()->route('user.login')->withErrors(['Your account is not activated.']);
+        }
+
+
+        $user = auth()->user();
+        $user->tv = $user->ts == 1 ? 0 : 1;
+        $user->save();
+
+          $baseUrl = "http://www.geoplugin.net/";
+			$endpoint = "json.gp?ip=" . request()->ip()."";
+			$httpVerb = "GET";
+			$contentType = "application/json"; //e.g charset=utf-8
+			$headers = array (
+				"Content-Type: $contentType",
+
+        );
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_URL, $baseUrl.$endpoint);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+            $content = json_decode(curl_exec( $ch ),true);
+            $err     = curl_errno( $ch );
+            $errmsg  = curl_error( $ch );
+        	curl_close($ch);
+
+
+             $conti = $content['geoplugin_continentName'] ?? 0;
+             $country = $content['geoplugin_countryName'] ?? 0;
+             $city = $content['geoplugin_city'] ?? 0;
+            $area = $content['geoplugin_areaCode'] ?? 0;
+           $code = $content['geoplugin_countryCode'] ?? 0;
+            $long = $content['geoplugin_longitude'] ?? 0;
+             $lat = $content['geoplugin_latitude'] ?? 0;
+
+        $info = json_decode(json_encode(getIpInfo()), true);
+        $ul['user_id'] = $user->id;
+        $ul['user_ip'] =  request()->ip();
+        $ul['long'] =  $long;
+        $ul['lat'] =  $lat;
+        $ul['location'] =  $city . $area . $country . $code;
+        $ul['country_code'] = $code;
+        $ul['browser'] = $info['browser'] ?? 0;
+        $ul['os'] = $info['os_platform'] ?? 0;
+        $ul['country'] =  $country;
+        UserLogin::create($ul);
+        
+        //return $user->account_type;
+
+        if($user->account_type == 1)
+        {
+        return redirect()->route('user.schoolhome');
+
+        }
+         elseif($user->account_type == 2)
+        {
+        return redirect()->route('user.tertiaryhome');
+
+        }
+        elseif($user->account_type == 0)
+        {
+        return redirect()->route('user.home');
+        }
+    }
+    
+    
+    public function authenticatedless(Request $request, $user)
     {
         if ($user->status == 0) {
             auth()->user()->tokens()->delete();

@@ -65,23 +65,9 @@
                         @endif
                         {{--}}
                         
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="dashboard-item">
-                                <a href="#" class="d-block">
-                                    <span class="dashboard-icon">
-                                        <i class="las la-wallet"></i>
-                                    </span>
-                                    <div class="cont">
-                                         <div class="dashboard-header">
-                                            <h2 class="title">{{$general->cur_sym}}{{ number_format(Auth::user()->balance,2) }}</h2>
-                                        </div>
-                                        @lang('Wallet Balance')
-                                    </div>
-                                </a>
-                            </div> 
-                        </div>
+                        
 
-                        <div class="col-sm-6 col-lg-6">
+                        <div class="col-sm-12 col-lg-12">
                             <div class="dashboard-item">
                                 <a href="{{route('user.cashback')}}" class="d-block">
                                     <span class="dashboard-icon">
